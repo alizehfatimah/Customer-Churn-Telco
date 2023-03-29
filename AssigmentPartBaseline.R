@@ -1,6 +1,9 @@
 # Loading necessary libraries and dataset
 library(readr)
+library(rlang)
+
 data <-  read.csv(file="Telco-Customer-Churn.csv")
+print('read data')
 for(i in 1:ncol(data)){
   data[is.na(data[, i]), i]<-names(which.max(table(data[i],useNA = "no")))
 }
@@ -11,7 +14,7 @@ library(caTools)
 original_outcomes <-table(data$Churn)
 sample <- sample.split(data$Churn,SplitRatio = 0.7)
 train <- subset(data,sample)
-test <-subset(data,!sample)
+test <- subset(data,!sample)
 
 # 2.1. Our baseline model in classification is to always predict the most frequent outcome in the training set. What is the most frequent outcome?
 test_outcome <- table(test$Churn)

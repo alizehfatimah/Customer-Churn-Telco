@@ -27,12 +27,14 @@ sample = sample.split(file_data,SplitRatio = 0.70) # splits the data in the rati
 train =subset(file_data,sample ==TRUE) # creates a training dataset named train1 with rows which are marked as TRUE
 test=subset(file_data, sample==FALSE)
 
+train$Churn <- as.factor(train$Churn)    
+
+test$Churn <- as.factor(test$Churn)
 
 library(randomForest)
-model =randomForest(Churn ~ . , data=train, ntree=100,importance=TRUE)
+model = randomForest(Churn ~ . , data=train, ntree=100,importance=TRUE)
 
 
 predct1 = predict(model,newdata = test ,type = 'class')
 
-table(predct1,test$Churn)
-
+confusionMatrix(table(predct1,test$Churn))

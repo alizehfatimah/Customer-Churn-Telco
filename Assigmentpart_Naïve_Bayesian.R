@@ -20,5 +20,5 @@ navie_predictor<-predict(navie_classifier,test_set) # put naive classifier iwith
 
 #making Confusion matrix to check accuracy
 library(caret)
-cf <- confusionMatrix(navie_predictor,test_set$Churn)
+cf <- confusionMatrix(navie_predictor,factor(test_set$Churn))
 cf
